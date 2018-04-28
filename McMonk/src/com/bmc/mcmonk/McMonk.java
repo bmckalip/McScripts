@@ -45,21 +45,23 @@ public class McMonk extends McScript{
 
     @Override
     public void initializeTasks() {
-        OpenBankTask openBankTask   = new OpenBankTask(this);
-        DepositTask depositTask     = new DepositTask(this);
-        ClimbUpTask climbUpTask     = new ClimbUpTask(this);
-        OpenDoorTask openDoorTask   = new OpenDoorTask(this);
-        CloseDoorTask closeDoorTask = new CloseDoorTask(this);
-        EquipTask equipTopTask      = new EquipTask(this, ROBE_TOP);
-        EquipTask equipBottomTask   = new EquipTask(this, ROBE_BOTTOM);
-        LootTask lootTopTask        = new LootTask(this, ROBE_TOP);
-        LootTask lootBottomTask     = new LootTask(this, ROBE_BOTTOM);
-        HopWorldsTask hopWorldsTask = new HopWorldsTask(this, lootTopTask, lootBottomTask);
-        ClimbDownTask climbDownTask = new ClimbDownTask(this);
+        OpenBankTask openBankTask      = new OpenBankTask(this);
+        DepositTask depositTask        = new DepositTask(this);
+        GainMonasteryAccess gainAccess = new GainMonasteryAccess(this);
+        ClimbUpTask climbUpTask        = new ClimbUpTask(this);
+        OpenDoorTask openDoorTask      = new OpenDoorTask(this);
+        CloseDoorTask closeDoorTask    = new CloseDoorTask(this);
+        EquipTask equipTopTask         = new EquipTask(this, ROBE_TOP);
+        EquipTask equipBottomTask      = new EquipTask(this, ROBE_BOTTOM);
+        LootTask lootTopTask           = new LootTask(this, ROBE_TOP);
+        LootTask lootBottomTask        = new LootTask(this, ROBE_BOTTOM);
+        HopWorldsTask hopWorldsTask    = new HopWorldsTask(this, lootTopTask, lootBottomTask);
+        ClimbDownTask climbDownTask    = new ClimbDownTask(this);
 
         Task[] tasks = {
                 openBankTask,
                 depositTask,
+                gainAccess,
                 climbUpTask,
                 openDoorTask,
                 closeDoorTask,
