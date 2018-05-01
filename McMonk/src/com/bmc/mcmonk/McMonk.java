@@ -116,7 +116,7 @@ public class McMonk extends McScript{
         g.setFont(new Font(font, Font.PLAIN, 10));
         g.drawString(Integer.toString(LootTask.topsLooted), 102, 364);
         g.drawString(Integer.toString(LootTask.bottomsLooted), 102, 376);
-        g.drawString(McFormatting.D2F.format(McCalculations.getRobesPerHour(LootTask.topsLooted + LootTask.bottomsLooted, startTime)), 102, 388);
+        g.drawString(McFormatting.D2F.format(McCalculations.getLootPerHour(LootTask.topsLooted + LootTask.bottomsLooted, startTime)), 102, 388);
         g.drawString(McFormatting.getElapsedTimestamp(startTime), 436, 388);
     }
 
