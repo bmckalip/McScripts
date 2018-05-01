@@ -23,17 +23,28 @@ import static com.bmc.mclib.constants.McItems.ROBE_TOP;
 
 @ScriptManifest(category = Category.MONEYMAKING, author = "BMC", version=0.1, name="McMonk")
 public class McMonk extends McScript{
+    //state
     private long startTime;
     private Image background;
 
     //paint resources
     private final String paintBackgroundURL = "https://i.imgur.com/WQH38mZ.png";
+    private final String font = "Arial";
+
+    //localization
+    private final String guiTitle = "McMonk Settings";
+    private final String lootTopsString = "Loot Tops";
+    private final String lootBottomsString = "Loot Bottoms";
+    private final String hopWorldsString = "Hop Worlds";
+    private final String startScriptString = "Start McMonk";
+
 
     //GUI settings
-    public boolean doLootBottoms = true;
-    public boolean doLootTops = true;
-    public boolean doHopWorlds = true;
+    private boolean doLootBottoms = true;
+    private boolean doLootTops = true;
+    private boolean doHopWorlds = true;
 
+    //super behaviour
     @Override
     public void onStart(){
         super.onStart();
@@ -75,17 +86,9 @@ public class McMonk extends McScript{
 
         setTasks(new TaskList(tasks));
 
-        if(!doLootBottoms){
-            lootBottomTask.enabled = false;
-            equipBottomTask.enabled = false;
-        }
-        if(!doLootTops){
-            lootTopTask.enabled = false;
-            equipTopTask.enabled = false;
-        }
-        if(!doHopWorlds){
-            hopWorldsTask.enabled = false;
-        }
+        if(!doLootBottoms) lootBottomTask.enabled = equipBottomTask.enabled = false;
+        if(!doLootTops)    lootTopTask.enabled = equipTopTask.enabled = false;
+        if(!doHopWorlds)   hopWorldsTask.enabled = false;
     }
 
     @Override
@@ -99,17 +102,18 @@ public class McMonk extends McScript{
 
     @Override
     public void createGUI() {
-        JFrame gui = McGUI.createDefaultGUI("com.bmc.mcmonk.McMonk", 300, 150);
+        JFrame gui = McGUI.createDefaultGUI(guiTitle, 300, 150);
         addGUICheckboxes(gui);
         addGUIButtons(gui);
         gui.pack();
         gui.setVisible(true);
     }
 
+    //local behavior
     //paint setup methods
     private void addPaintText(Graphics g) {
         g.setColor(McColors.MONK_BROWN);
-        g.setFont(new Font("Arial", Font.PLAIN, 10));
+        g.setFont(new Font(font, Font.PLAIN, 10));
         g.drawString(Integer.toString(LootTask.topsLooted), 102, 364);
         g.drawString(Integer.toString(LootTask.bottomsLooted), 102, 376);
         g.drawString(McFormatting.D2F.format(McCalculations.getRobesPerHour(LootTask.topsLooted + LootTask.bottomsLooted, startTime)), 102, 388);
@@ -126,9 +130,9 @@ public class McMonk extends McScript{
         JPanel settings = new JPanel();
         settings.setLayout(new GridLayout(3, 1));
 
-        JCheckBox lootTopsCheckbox = McGUI.createCheckbox("Loot Tops", doLootTops);
-        JCheckBox lootBottomsCheckbox = McGUI.createCheckbox("Loot Bottoms", doLootBottoms);
-        JCheckBox hopWorldsCheckbox = McGUI.createCheckbox("Hop Worlds", doHopWorlds);
+        JCheckBox lootTopsCheckbox = McGUI.createCheckbox(lootTopsString, doLootTops);
+        JCheckBox lootBottomsCheckbox = McGUI.createCheckbox(lootBottomsString, doLootBottoms);
+        JCheckBox hopWorldsCheckbox = McGUI.createCheckbox(hopWorldsString, doHopWorlds);
 
         lootTopsCheckbox.addActionListener(e -> doLootBottoms = lootTopsCheckbox.isSelected());
         lootBottomsCheckbox.addActionListener(e -> doLootBottoms = lootBottomsCheckbox.isSelected());
@@ -144,7 +148,7 @@ public class McMonk extends McScript{
     private void addGUIButtons(JFrame gui){
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1, 0));
-        JButton button = McGUI.createButton("Start McMonk");
+        JButton button = McGUI.createButton(startScriptString);
         button.addActionListener(e -> {
             initializeTasks();
             guiCompleted = true;
@@ -160,7 +164,7 @@ public class McMonk extends McScript{
             LootTask.currentTopCount = getInventory().count(ROBE_TOP);
         }
 
-        if(!isIdle && getInventory().count(ROBE_BOTTOM) > LootTask.currentBottomCount && !isIdle){
+        if(getInventory().count(ROBE_BOTTOM) > LootTask.currentBottomCount && !isIdle){
             LootTask.bottomsLooted++;
             LootTask.currentBottomCount = getInventory().count(ROBE_BOTTOM);
         }

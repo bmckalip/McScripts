@@ -28,7 +28,7 @@ public class EquipTask extends Task {
 
     @Override
     public int execute(){
-        Task.previousTask = toString();
+        Task.previousTask = this.getClass().toString();
         if(!s.getTabs().isOpen(Tab.INVENTORY)) s.getTabs().open(Tab.INVENTORY);
         if(s.getInventory().contains(itemToEquip)) s.getInventory().get(itemToEquip).interact("Wear");
         Random r = new Random();
@@ -36,7 +36,5 @@ public class EquipTask extends Task {
     }
 
     @Override
-    public String toString(){
-        return "Equipping Robes";
-    }
+    public String toString(){ return itemToEquip == ROBE_TOP ? "Equipping Robe Top" : "Equipping Robe Bottom"; }
 }

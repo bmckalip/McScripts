@@ -26,6 +26,6 @@ public class DepositTask extends Task {
 
     @Override
     public String toString(){
-        return "Depositing items";
+        return "Depositing Items";
     }
 }

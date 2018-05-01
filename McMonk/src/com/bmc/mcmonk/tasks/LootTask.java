@@ -36,8 +36,6 @@ public class LootTask extends Task {
         }else if(itemToLoot == ROBE_BOTTOM){
             lootLocation = ROBE_BOTTOM_LOCATION;
 
-        }else{
-            s.log("invalid item");
         }
         this.refreshItems();
     }
@@ -58,7 +56,7 @@ public class LootTask extends Task {
 
     @Override
     public int execute() {
-        Task.previousTask = toString();
+        Task.previousTask = this.getClass().toString();
         Random r = new Random();
         if(r.nextInt(5) == 0){
             if(r.nextInt(2) == 0){
@@ -95,7 +93,5 @@ public class LootTask extends Task {
     }
 
     @Override
-    public String toString(){
-        return "Looting Robes";
-    }
+    public String toString(){ return itemToLoot == ROBE_TOP ? "Looting Robe Top" : "Looting Robe Bottom"; }
 }
