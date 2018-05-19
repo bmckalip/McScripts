@@ -11,7 +11,7 @@ import static com.bmc.mclib.constants.McTiles.MONK_DOOR_TILE;
 public class OpenDoorTask extends Task {
     private GameObject[] doors;
     public OpenDoorTask(McScript s) {
-        super(s);
+        super(s, "Opening Door");
     }
 
     @Override
@@ -39,10 +39,5 @@ public class OpenDoorTask extends Task {
     @Override
     public void refreshObjects(){
         doors = s.getGameObjects().getObjectsOnTile(MONK_DOOR_TILE);
-    }
-
-    @Override
-    public String toString(){
-        return "Opening Door";
     }
 }

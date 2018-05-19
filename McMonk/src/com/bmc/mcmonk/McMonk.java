@@ -24,7 +24,6 @@ import static com.bmc.mclib.constants.McItems.ROBE_TOP;
 @ScriptManifest(category = Category.MONEYMAKING, author = "BMC", version=0.1, name="McMonk")
 public class McMonk extends McScript{
     //state
-    private long startTime;
     private Image background;
 
     //paint resources
@@ -47,7 +46,6 @@ public class McMonk extends McScript{
     @Override
     public void onStart(){
         super.onStart();
-        startTime = System.currentTimeMillis();
         setupPaintResources();
         this.getWalking().setRunThreshold(40);
         hasGUI = true;

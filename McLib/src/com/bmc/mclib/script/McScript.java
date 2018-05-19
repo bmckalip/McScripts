@@ -13,6 +13,8 @@ public abstract class McScript extends AbstractScript implements TaskManager{
     public boolean guiCompleted = false;
     public boolean hasGUI = false;
     public boolean isIdle;
+    public long startTime;
+
 
     public void updateTasks(TaskList tasks){
         this.taskList = tasks;
@@ -27,7 +29,8 @@ public abstract class McScript extends AbstractScript implements TaskManager{
     @Override
     public void onStart() {
         super.onStart();
-        log("Starting Script");
+        startTime = System.currentTimeMillis();
+        log("Script Started");
         this.createGUI();
         updateTasks(this.getTasks());
     }

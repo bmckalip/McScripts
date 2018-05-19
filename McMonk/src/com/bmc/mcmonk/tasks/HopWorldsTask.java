@@ -18,7 +18,7 @@ public class HopWorldsTask extends Task {
     private LootTask bottomLootTask;
 
     public HopWorldsTask(McScript s, LootTask topLootTask, LootTask bottomLootTask) {
-        super(s);
+        super(s, "Hopping Worlds");
         this.topLootTask = topLootTask;
         this.bottomLootTask = bottomLootTask;
         items = new ArrayList<GroundItem>();
@@ -46,11 +46,6 @@ public class HopWorldsTask extends Task {
         s.getWorldHopper().hopWorld(world);
         s.sleepUntil(() -> oldWorld != s.getClient().getCurrentWorld() && s.getLocalPlayer().exists(), 7000);
         delay = r.nextInt(300) + 200;
-    }
-
-    @Override
-    public String toString(){
-        return "Hopping Worlds";
     }
 
     @Override

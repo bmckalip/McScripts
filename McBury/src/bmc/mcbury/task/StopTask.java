@@ -7,7 +7,7 @@ public class StopTask extends Task {
     private int BONES;
 
     public StopTask(McScript s, int BONES) {
-        super(s);
+        super(s, "StopTask");
         this.BONES = BONES;
     }
 
@@ -21,10 +21,5 @@ public class StopTask extends Task {
         s.getBank().close();
         s.sleepUntil(() -> !s.getBank().isOpen(), 3000);
         s.stop();
-    }
-
-    @Override
-    public String toString() {
-        return "StopTask";
     }
 }

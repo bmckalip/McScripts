@@ -7,7 +7,7 @@ public class CloseBankTask extends Task {
     private int BONES;
 
     public CloseBankTask(McScript s, int BONES) {
-        super(s);
+        super(s, "CloseBankTask");
         this.BONES = BONES;
     }
 
@@ -20,10 +20,5 @@ public class CloseBankTask extends Task {
     public void execute() {
         s.getBank().close();
         delay = 500;
-    }
-
-    @Override
-    public String toString() {
-        return "CloseBankTask";
     }
 }

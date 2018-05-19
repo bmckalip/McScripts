@@ -4,7 +4,7 @@ import com.bmc.mclib.script.McScript;
 import com.bmc.mclib.tasks.Task;
 
 public class DepositTask extends Task {
-    public DepositTask(McScript s){ super(s); }
+    public DepositTask(McScript s){ super(s, "Depositing Items"); }
 
     @Override
     public boolean validate() {
@@ -16,10 +16,5 @@ public class DepositTask extends Task {
         s.getBank().depositAllItems();
         s.getBank().depositAllEquipment();
         delay = r.nextInt(100) + 400;
-    }
-
-    @Override
-    public String toString(){
-        return "Depositing Items";
     }
 }

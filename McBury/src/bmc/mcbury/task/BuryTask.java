@@ -7,7 +7,7 @@ public class BuryTask extends Task {
     private int BONES;
 
     public BuryTask(McScript s, int BONES) {
-        super(s);
+        super(s, "BuryTask");
         this.BONES = BONES;
     }
 
@@ -20,10 +20,5 @@ public class BuryTask extends Task {
     public void execute() {
         s.getInventory().get(this.BONES).interact("Bury");
         delay = r.nextInt(100) + 100;
-    }
-
-    @Override
-    public String toString() {
-        return "BuryTask";
     }
 }

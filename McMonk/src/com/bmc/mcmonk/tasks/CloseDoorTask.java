@@ -4,15 +4,13 @@ import com.bmc.mclib.script.McScript;
 import com.bmc.mclib.tasks.Task;
 import org.dreambot.api.wrappers.interactive.GameObject;
 
-import java.util.Random;
-
 import static com.bmc.mclib.constants.McTiles.MONK_DOOR_TILE;
 import static com.bmc.mclib.constants.McTiles.MONK_STUCK_TILE;
 
 public class CloseDoorTask extends Task {
     private GameObject[] doors;
 
-    public CloseDoorTask(McScript s){ super(s); }
+    public CloseDoorTask(McScript s){ super(s, "Closing Door"); }
 
     @Override
     public boolean validate() {
@@ -38,12 +36,8 @@ public class CloseDoorTask extends Task {
         return false;
     }
 
+    @Override
     public void refreshObjects(){
         doors = s.getGameObjects().getObjectsOnTile(MONK_DOOR_TILE);
-    }
-
-    @Override
-    public String toString(){
-        return "Closing Door";
     }
 }

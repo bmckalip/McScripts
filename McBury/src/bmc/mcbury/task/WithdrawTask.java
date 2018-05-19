@@ -7,7 +7,7 @@ public class WithdrawTask extends Task {
     private int BONES;
 
     public WithdrawTask(McScript s, int BONES) {
-        super(s);
+        super(s, "WithdrawTask");
         this.BONES = BONES;
     }
 
@@ -20,10 +20,5 @@ public class WithdrawTask extends Task {
     public void  execute() {
         s.getBank().withdrawAll(this.BONES);
         delay = 500;
-    }
-
-    @Override
-    public String toString() {
-        return "WithdrawTask";
     }
 }

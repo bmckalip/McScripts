@@ -11,7 +11,7 @@ public class ClimbUpTask extends Task {
     GameObject[] ladders;
 
     public ClimbUpTask(McScript s) {
-        super(s);
+        super(s, "Climbing Up Ladder");
     }
 
     @Override
@@ -44,10 +44,5 @@ public class ClimbUpTask extends Task {
     @Override
     public void refreshObjects(){
         ladders = s.getGameObjects().getObjectsOnTile(MONK_LADDER_UP_TILE);
-    }
-
-    @Override
-    public String toString(){
-        return "Climbing Up Ladder";
     }
 }

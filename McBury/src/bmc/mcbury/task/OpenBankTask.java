@@ -7,7 +7,7 @@ public class OpenBankTask extends Task {
     private int BONES;
 
     public OpenBankTask(McScript s, int BONES) {
-        super(s);
+        super(s, "OpenBankTask");
         this.BONES = BONES;
     }
 
@@ -20,10 +20,5 @@ public class OpenBankTask extends Task {
     public void execute() {
         s.getBank().openClosest();
         delay = 500;
-    }
-
-    @Override
-    public String toString() {
-        return "OpenBankTask";
     }
 }
