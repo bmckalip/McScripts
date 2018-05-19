@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class OpenBankTask extends Task {
     public OpenBankTask(McScript s) {
-        super(s);
+        super(s, "Banking Robes");
     }
 
     @Override
@@ -17,20 +17,9 @@ public class OpenBankTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         Random r = new Random();
         s.getBank().open(BankLocation.EDGEVILLE);
-        return r.nextInt(700) + 300;
+        delay = r.nextInt(700) + 300;
     }
-
-    private boolean isFull(){
-        return false;
-    }
-
-    @Override
-    public String toString(){
-        return "Banking Robes";
-    }
-
 }

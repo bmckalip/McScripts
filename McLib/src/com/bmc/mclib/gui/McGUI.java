@@ -1,25 +1,25 @@
-package com.bmc.mclib.utility;
+package com.bmc.mclib.gui;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static org.dreambot.api.Client.getClient;
 
-public class McGUI{
-    public static JCheckBox createCheckbox(String text, boolean selected){
+public interface McGUI{
+    static JCheckBox createCheckbox(String text, boolean selected){
         JCheckBox checkbox = new JCheckBox();
         checkbox.setText(text);
         checkbox.setSelected(selected);
         return checkbox;
     }
 
-    public static JButton createButton(String text){
+    static JButton createButton(String text){
         JButton button = new JButton();
         button.setText(text);
         return button;
     }
 
-    public static JFrame createDefaultGUI(String title, int sizeX, int sizeY){
+    static JFrame createDefaultGUI(String title, int sizeX, int sizeY){
         JFrame gui = new JFrame();
         gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gui.setLocationRelativeTo(getClient().getInstance().getCanvas());
@@ -27,4 +27,9 @@ public class McGUI{
         gui.getContentPane().setLayout(new BorderLayout());
         return gui;
     }
+
+    default JFrame createGUI(){ return null;}
+    void setGUI();
+    JFrame getGUI();
+    void launchGUI();
 }

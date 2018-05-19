@@ -3,12 +3,8 @@ package com.bmc.mcmonk.tasks;
 import com.bmc.mclib.script.McScript;
 import com.bmc.mclib.tasks.Task;
 
-import java.util.Random;
-
 public class DepositTask extends Task {
-    public DepositTask(McScript s){
-        super(s);
-    }
+    public DepositTask(McScript s){ super(s, "Depositing Items"); }
 
     @Override
     public boolean validate() {
@@ -16,16 +12,9 @@ public class DepositTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
-        Random r = new Random();
+    public void execute() {
         s.getBank().depositAllItems();
         s.getBank().depositAllEquipment();
-        return r.nextInt(100) + 400;
-    }
-
-    @Override
-    public String toString(){
-        return "Depositing Items";
+        delay = r.nextInt(100) + 400;
     }
 }

@@ -6,7 +6,7 @@ import com.bmc.mclib.taskmanager.TaskList;
 import com.bmc.mclib.tasks.Task;
 import com.bmc.mclib.utility.McCalculations;
 import com.bmc.mclib.utility.McFormatting;
-import com.bmc.mclib.utility.McGUI;
+import com.bmc.mclib.gui.McGUI;
 import com.bmc.mclib.utility.McPaint;
 import com.bmc.mcmonk.tasks.*;
 import org.dreambot.api.script.Category;
@@ -24,7 +24,6 @@ import static com.bmc.mclib.constants.McItems.ROBE_TOP;
 @ScriptManifest(category = Category.MONEYMAKING, author = "BMC", version=0.1, name="McMonk")
 public class McMonk extends McScript{
     //state
-    private long startTime;
     private Image background;
 
     //paint resources
@@ -38,7 +37,6 @@ public class McMonk extends McScript{
     private final String hopWorldsString = "Hop Worlds";
     private final String startScriptString = "Start McMonk";
 
-
     //GUI settings
     private boolean doLootBottoms = true;
     private boolean doLootTops = true;
@@ -48,52 +46,43 @@ public class McMonk extends McScript{
     @Override
     public void onStart(){
         super.onStart();
-        startTime = System.currentTimeMillis();
         setupPaintResources();
         this.getWalking().setRunThreshold(40);
-        hasGUI = true;
     }
 
     @Override
-    public void initializeTasks() {
-        OpenBankTask openBankTask      = new OpenBankTask(this);
-        DepositTask depositTask        = new DepositTask(this);
-        GainMonasteryAccess gainAccess = new GainMonasteryAccess(this);
-        ClimbUpTask climbUpTask        = new ClimbUpTask(this);
-        OpenDoorTask openDoorTask      = new OpenDoorTask(this);
-        CloseDoorTask closeDoorTask    = new CloseDoorTask(this);
-        EquipTask equipTopTask         = new EquipTask(this, ROBE_TOP);
-        EquipTask equipBottomTask      = new EquipTask(this, ROBE_BOTTOM);
-        LootTask lootTopTask           = new LootTask(this, ROBE_TOP);
-        LootTask lootBottomTask        = new LootTask(this, ROBE_BOTTOM);
-        HopWorldsTask hopWorldsTask    = new HopWorldsTask(this, lootTopTask, lootBottomTask);
-        ClimbDownTask climbDownTask    = new ClimbDownTask(this);
+    public TaskList getTasks() {
+        EquipTask equipTopTask = new EquipTask(this, ROBE_TOP);
+        EquipTask equipBottomTask = new EquipTask(this, ROBE_TOP);
+        LootTask lootTopTask = new LootTask(this, ROBE_TOP);
+        LootTask lootBottomTask = new LootTask(this, ROBE_BOTTOM);
+        HopWorldsTask hopWorldsTask = new HopWorldsTask(this, lootTopTask, lootBottomTask);
 
         Task[] tasks = {
-                openBankTask,
-                depositTask,
-                gainAccess,
-                climbUpTask,
-                openDoorTask,
-                closeDoorTask,
+                new OpenBankTask(this),
+                new DepositTask(this),
+                new GainMonasteryAccess(this),
+                new ClimbUpTask(this),
+                new OpenDoorTask(this),
+                new CloseDoorTask(this),
                 equipTopTask,
                 equipBottomTask,
                 lootTopTask,
                 lootBottomTask,
                 hopWorldsTask,
-                climbDownTask
+                new ClimbDownTask(this)
         };
-
-        setTasks(new TaskList(tasks));
 
         if(!doLootBottoms) lootBottomTask.enabled = equipBottomTask.enabled = false;
         if(!doLootTops)    lootTopTask.enabled = equipTopTask.enabled = false;
         if(!doHopWorlds)   hopWorldsTask.enabled = false;
+
+        return new TaskList(tasks);
     }
 
     @Override
     public void onPaint(Graphics g){
-        if(McPaint.shouldPaint(this, hasGUI, guiCompleted)){
+        if(McPaint.shouldPaint(this, getGUI(), guiCompleted)){
             incrementLootCount();
             if(background != null){ g.drawImage(background, 0, 338, null); }
             addPaintText(g);
@@ -101,15 +90,14 @@ public class McMonk extends McScript{
     }
 
     @Override
-    public void createGUI() {
+    public JFrame createGUI() {
         JFrame gui = McGUI.createDefaultGUI(guiTitle, 300, 150);
         addGUICheckboxes(gui);
         addGUIButtons(gui);
         gui.pack();
-        gui.setVisible(true);
+        return gui;
     }
 
-    //local behavior
     //paint setup methods
     private void addPaintText(Graphics g) {
         g.setColor(McColors.MONK_BROWN);
@@ -150,7 +138,7 @@ public class McMonk extends McScript{
         buttons.setLayout(new GridLayout(1, 0));
         JButton button = McGUI.createButton(startScriptString);
         button.addActionListener(e -> {
-            initializeTasks();
+            updateTasks(getTasks());
             guiCompleted = true;
             gui.dispose();
         });
