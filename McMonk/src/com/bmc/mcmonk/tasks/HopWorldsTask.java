@@ -50,12 +50,12 @@ public class HopWorldsTask extends Task {
 
     @Override
     public void refreshObjects(){
-        items.clear();
-        if(topLootTask.enabled){
+        if (items != null) items.clear();
+        if(topLootTask != null && topLootTask.enabled){
             items.addAll(s.getGroundItems().all(i -> i != null && i.getID() == ROBE_TOP));
         }
 
-        if(bottomLootTask.enabled){
+        if(bottomLootTask != null && bottomLootTask.enabled){
             items.addAll(s.getGroundItems().all(i -> i != null && i.getID() == ROBE_BOTTOM));
         }
     }

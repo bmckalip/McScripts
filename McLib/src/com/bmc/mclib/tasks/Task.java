@@ -24,14 +24,15 @@ public abstract class Task {
     }
 
     public final int doExecute(){
-        prologue();
+        state = this;
+        refreshObjects();
         execute();
         return delay;
     }
 
-    private final void prologue(){
-        state = this;
+    public final boolean doValidate(){
         refreshObjects();
+        return validate();
     }
 
     public void refreshObjects(){}
