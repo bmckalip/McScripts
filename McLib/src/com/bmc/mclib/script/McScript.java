@@ -7,19 +7,16 @@ import org.dreambot.api.script.AbstractScript;
 
 public abstract class McScript extends AbstractScript implements TaskManager{
     private TaskList<Task> taskList;
-    public abstract void initializeTasks();
-    public abstract void createGUI();
+    public abstract TaskList getTasks();
+    public void createGUI() {};
 
     public boolean guiCompleted = false;
     public boolean hasGUI = false;
     public boolean isIdle;
 
-    public void setTasks(TaskList tasks){
+    public void updateTasks(TaskList tasks){
         this.taskList = tasks;
     }
-
-    @Override
-    public TaskList getTasks(){ return this.taskList;}
 
     @Override
     public void addTask(Task task){ taskList.addTask(task);}
@@ -32,7 +29,7 @@ public abstract class McScript extends AbstractScript implements TaskManager{
         super.onStart();
         log("Starting Script");
         this.createGUI();
-        this.initializeTasks();
+        updateTasks(this.getTasks());
     }
 
     @Override

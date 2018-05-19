@@ -54,7 +54,7 @@ public class McMonk extends McScript{
     }
 
     @Override
-    public void initializeTasks() {
+    public TaskList getTasks() {
         EquipTask equipTopTask = new EquipTask(this, ROBE_TOP);
         EquipTask equipBottomTask = new EquipTask(this, ROBE_TOP);
         LootTask lootTopTask = new LootTask(this, ROBE_TOP);
@@ -76,11 +76,11 @@ public class McMonk extends McScript{
                 new ClimbDownTask(this)
         };
 
-        setTasks(new TaskList(tasks));
-
         if(!doLootBottoms) lootBottomTask.enabled = equipBottomTask.enabled = false;
         if(!doLootTops)    lootTopTask.enabled = equipTopTask.enabled = false;
         if(!doHopWorlds)   hopWorldsTask.enabled = false;
+
+        return new TaskList(tasks);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class McMonk extends McScript{
         buttons.setLayout(new GridLayout(1, 0));
         JButton button = McGUI.createButton(startScriptString);
         button.addActionListener(e -> {
-            initializeTasks();
+            updateTasks(getTasks());
             guiCompleted = true;
             gui.dispose();
         });

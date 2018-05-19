@@ -11,7 +11,7 @@ public class McBury extends McScript {
     public boolean stop = false;
 
     @Override
-    public void initializeTasks() {
+    public TaskList getTasks() {
         BuryTask buryTask = new BuryTask(this, BIG_BONES);
         OpenBankTask openBankTask = new OpenBankTask(this, BIG_BONES);
         StopTask stopTask = new StopTask(this, BIG_BONES);
@@ -19,11 +19,6 @@ public class McBury extends McScript {
         CloseBankTask closeBankTask = new CloseBankTask(this, BIG_BONES);
 
         Task[] tasks = {buryTask, openBankTask, stopTask, withdrawTask, closeBankTask};
-        setTasks(new TaskList(tasks));
-    }
-
-    @Override
-    public void createGUI() {
-
+        return new TaskList(tasks);
     }
 }
