@@ -1,20 +1,22 @@
 package com.bmc.mclib.script;
 
+import com.bmc.mclib.gui.McGUI;
 import com.bmc.mclib.taskmanager.TaskList;
 import com.bmc.mclib.taskmanager.TaskManager;
 import com.bmc.mclib.tasks.Task;
 import org.dreambot.api.script.AbstractScript;
 
-public abstract class McScript extends AbstractScript implements TaskManager{
-    private TaskList<Task> taskList;
-    public abstract TaskList getTasks();
-    public void createGUI() {};
+import javax.swing.*;
 
+public abstract class McScript extends AbstractScript implements TaskManager, McGUI{
+    private TaskList<Task> taskList;
+    JFrame gui;
     public boolean guiCompleted = false;
-    public boolean hasGUI = false;
+
     public boolean isIdle;
     public long startTime;
 
+    public abstract TaskList getTasks();
 
     public void updateTasks(TaskList tasks){
         this.taskList = tasks;
@@ -31,13 +33,14 @@ public abstract class McScript extends AbstractScript implements TaskManager{
         super.onStart();
         startTime = System.currentTimeMillis();
         log("Script Started");
-        this.createGUI();
+        gui = this.createGUI();
+        this.launchGUI();
         updateTasks(this.getTasks());
     }
 
     @Override
     public int onLoop() {
-        if(guiCompleted || !hasGUI) {
+        if(guiCompleted || gui != null) {
             for (Task task : this.taskList) {
                 if (task.enabled && task.validate()) {
                     isIdle = false;
@@ -50,5 +53,21 @@ public abstract class McScript extends AbstractScript implements TaskManager{
             }
         }
         return 0;
+    }
+
+    //GUI
+    @Override
+    public final void setGUI(){
+        gui = createGUI();
+    }
+
+    @Override
+    public final JFrame getGUI(){
+        return gui;
+    }
+
+    @Override
+    public final void launchGUI(){
+        gui.setVisible(true);
     }
 }

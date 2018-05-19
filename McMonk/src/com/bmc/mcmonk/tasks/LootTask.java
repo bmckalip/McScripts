@@ -19,9 +19,7 @@ public class LootTask extends Task {
     public static int bottomsLooted = 0;
 
     private int itemToLoot;
-
     private Tile lootLocation;
-
     private GroundItem[] items;
 
     public LootTask(McScript s, int itemToLoot){
@@ -32,6 +30,7 @@ public class LootTask extends Task {
         }else if(itemToLoot == ROBE_BOTTOM){
             lootLocation = ROBE_BOTTOM_LOCATION;
         }
+        executionMessage = itemToLoot == ROBE_TOP ? "Looting Robe Top" : "Looting Robe Bottom";
     }
 
     @Override
@@ -70,9 +69,6 @@ public class LootTask extends Task {
         currentTopCount = s.getInventory().count(ROBE_TOP);
         items = s.getGroundItems().getGroundItems(lootLocation);
     }
-
-    @Override
-    public String toString(){ return itemToLoot == ROBE_TOP ? "Looting Robe Top" : "Looting Robe Bottom"; }
 
     private void adjustCamera(int executionPercent, int byMousePercent) {
         if (r.nextInt(1/ (executionPercent / 100)) == 0) {

@@ -6,7 +6,7 @@ import com.bmc.mclib.taskmanager.TaskList;
 import com.bmc.mclib.tasks.Task;
 import com.bmc.mclib.utility.McCalculations;
 import com.bmc.mclib.utility.McFormatting;
-import com.bmc.mclib.utility.McGUI;
+import com.bmc.mclib.gui.McGUI;
 import com.bmc.mclib.utility.McPaint;
 import com.bmc.mcmonk.tasks.*;
 import org.dreambot.api.script.Category;
@@ -48,7 +48,6 @@ public class McMonk extends McScript{
         super.onStart();
         setupPaintResources();
         this.getWalking().setRunThreshold(40);
-        hasGUI = true;
     }
 
     @Override
@@ -83,7 +82,7 @@ public class McMonk extends McScript{
 
     @Override
     public void onPaint(Graphics g){
-        if(McPaint.shouldPaint(this, hasGUI, guiCompleted)){
+        if(McPaint.shouldPaint(this, getGUI(), guiCompleted)){
             incrementLootCount();
             if(background != null){ g.drawImage(background, 0, 338, null); }
             addPaintText(g);
@@ -91,15 +90,14 @@ public class McMonk extends McScript{
     }
 
     @Override
-    public void createGUI() {
+    public JFrame createGUI() {
         JFrame gui = McGUI.createDefaultGUI(guiTitle, 300, 150);
         addGUICheckboxes(gui);
         addGUIButtons(gui);
         gui.pack();
-        gui.setVisible(true);
+        return gui;
     }
 
-    //local behavior
     //paint setup methods
     private void addPaintText(Graphics g) {
         g.setColor(McColors.MONK_BROWN);
