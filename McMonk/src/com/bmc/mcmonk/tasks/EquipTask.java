@@ -19,7 +19,9 @@ public class EquipTask extends Task {
     }
 
     @Override
-    public boolean validate() { return !s.getEquipment().contains(itemToEquip) && s.getInventory().contains(itemToEquip);}
+    public boolean validate() {
+        return !s.getEquipment().contains(itemToEquip) && s.getInventory().contains(itemToEquip);
+    }
 
     @Override
     public void execute(){

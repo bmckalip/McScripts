@@ -53,7 +53,7 @@ public class McMonk extends McScript{
     @Override
     public TaskList getTasks() {
         EquipTask equipTopTask = new EquipTask(this, ROBE_TOP);
-        EquipTask equipBottomTask = new EquipTask(this, ROBE_TOP);
+        EquipTask equipBottomTask = new EquipTask(this, ROBE_BOTTOM);
         LootTask lootTopTask = new LootTask(this, ROBE_TOP);
         LootTask lootBottomTask = new LootTask(this, ROBE_BOTTOM);
         HopWorldsTask hopWorldsTask = new HopWorldsTask(this, lootTopTask, lootBottomTask);
