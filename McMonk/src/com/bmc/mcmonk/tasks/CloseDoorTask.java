@@ -16,26 +16,20 @@ public class CloseDoorTask extends Task {
 
     @Override
     public boolean validate() {
-        refreshDoors();
         return s.getLocalPlayer().getTile().equals(MONK_STUCK_TILE) && doorIsOpen();
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
-        Random r = new Random();
-        refreshDoors();
+    public void execute() {
         for(GameObject door : doors){
             if(door != null && door.exists() && door.hasAction("Close")) {
                 door.interact("Close");
             }
         }
-        return r.nextInt(300) + 1400;
+        delay = r.nextInt(300) + 1400;
     }
 
     private boolean doorIsOpen(){
-        refreshDoors();
-
         for(GameObject door : doors){
             if(door != null && door.exists() && door.hasAction("Close")) {
                 return true;
@@ -44,7 +38,7 @@ public class CloseDoorTask extends Task {
         return false;
     }
 
-    private void refreshDoors(){
+    public void refreshObjects(){
         doors = s.getGameObjects().getObjectsOnTile(MONK_DOOR_TILE);
     }
 

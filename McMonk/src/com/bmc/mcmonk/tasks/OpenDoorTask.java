@@ -4,8 +4,6 @@ import com.bmc.mclib.script.McScript;
 import com.bmc.mclib.tasks.Task;
 import org.dreambot.api.wrappers.interactive.GameObject;
 
-import java.util.Random;
-
 import static com.bmc.mclib.constants.McAreas.MONK_LOOTING_ROOM;
 import static com.bmc.mclib.constants.McObjects.DOOR;
 import static com.bmc.mclib.constants.McTiles.MONK_DOOR_TILE;
@@ -18,7 +16,6 @@ public class OpenDoorTask extends Task {
 
     @Override
     public boolean validate() {
-        refreshDoors();
         return  doorIsClosed() &&
                 s.getLocalPlayer().getZ() == 1 && (
                 (!MONK_LOOTING_ROOM.contains(s.getLocalPlayer()) && !s.getInventory().isFull()) ||
@@ -26,15 +23,12 @@ public class OpenDoorTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
-        Random r = new Random();
-        refreshDoors();
+    public void execute() {
         if(doors != null && doors.length > 0){
             GameObject door = doors[0];
             if(door != null) door.interact("Open");
         }
-        return r.nextInt(300) + 500;
+        delay = r.nextInt(300) + 500;
     }
 
     private boolean doorIsClosed(){
@@ -42,7 +36,8 @@ public class OpenDoorTask extends Task {
         return doors.length > 0 && doors[0].exists() && doors[0].getID() == DOOR;
     }
 
-    private void refreshDoors(){
+    @Override
+    public void refreshObjects(){
         doors = s.getGameObjects().getObjectsOnTile(MONK_DOOR_TILE);
     }
 

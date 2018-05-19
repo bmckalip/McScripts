@@ -22,26 +22,22 @@ public class HopWorldsTask extends Task {
         this.topLootTask = topLootTask;
         this.bottomLootTask = bottomLootTask;
         items = new ArrayList<GroundItem>();
-        refreshItems();
     }
 
     @Override
     public boolean validate() {
-        this.refreshItems();
         if(!s.getInventory().isFull() && !areNoItems()){
             return false;
         }else{
             Random r = new Random();
             s.sleep(1000 + r.nextInt(2000));
-            this.refreshItems();
+            this.refreshObjects();
             return !s.getInventory().isFull() && areNoItems();
         }
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
-        Random r = new Random();
+    public void execute() {
         int oldWorld = s.getClient().getCurrentWorld();
         List<Integer> availableWorlds = new ArrayList<Integer>(F2P_WORLDS);
         availableWorlds.remove(new Integer(oldWorld));
@@ -49,7 +45,7 @@ public class HopWorldsTask extends Task {
 
         s.getWorldHopper().hopWorld(world);
         s.sleepUntil(() -> oldWorld != s.getClient().getCurrentWorld() && s.getLocalPlayer().exists(), 7000);
-        return r.nextInt(300) + 200;
+        delay = r.nextInt(300) + 200;
     }
 
     @Override
@@ -57,9 +53,9 @@ public class HopWorldsTask extends Task {
         return "Hopping Worlds";
     }
 
-    private void refreshItems(){
+    @Override
+    public void refreshObjects(){
         items.clear();
-
         if(topLootTask.enabled){
             items.addAll(s.getGroundItems().all(i -> i != null && i.getID() == ROBE_TOP));
         }

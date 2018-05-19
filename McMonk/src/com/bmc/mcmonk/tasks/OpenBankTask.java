@@ -17,15 +17,10 @@ public class OpenBankTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         Random r = new Random();
         s.getBank().open(BankLocation.EDGEVILLE);
-        return r.nextInt(700) + 300;
-    }
-
-    private boolean isFull(){
-        return false;
+        delay = r.nextInt(700) + 300;
     }
 
     @Override
