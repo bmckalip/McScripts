@@ -17,10 +17,9 @@ public class OpenBankTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         s.getBank().openClosest();
-        return 500;
+        delay = 500;
     }
 
     @Override

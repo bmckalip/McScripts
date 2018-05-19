@@ -3,8 +3,6 @@ package bmc.mcbury.task;
 import com.bmc.mclib.script.McScript;
 import com.bmc.mclib.tasks.Task;
 
-import java.util.Random;
-
 public class BuryTask extends Task {
     private int BONES;
 
@@ -19,10 +17,9 @@ public class BuryTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         s.getInventory().get(this.BONES).interact("Bury");
-        return new Random().nextInt(100) + 100;
+        delay = r.nextInt(100) + 100;
     }
 
     @Override

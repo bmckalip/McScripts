@@ -17,10 +17,9 @@ public class WithdrawTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void  execute() {
         s.getBank().withdrawAll(this.BONES);
-        return 500;
+        delay = 500;
     }
 
     @Override

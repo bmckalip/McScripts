@@ -17,10 +17,9 @@ public class CloseBankTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         s.getBank().close();
-        return 500;
+        delay = 500;
     }
 
     @Override

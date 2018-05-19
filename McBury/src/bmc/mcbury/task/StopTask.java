@@ -17,12 +17,10 @@ public class StopTask extends Task {
     }
 
     @Override
-    public int execute() {
-        Task.previousTask = toString();
+    public void execute() {
         s.getBank().close();
         s.sleepUntil(() -> !s.getBank().isOpen(), 3000);
         s.stop();
-        return 0;
     }
 
     @Override
