@@ -55,4 +55,20 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+## Closed Sourced Projects ##
+McAccounts/
+McBone/
+McBury/
+McChop/
+McCook/
+McGrain/
+McHost/
+McJars/
+McManage/
+McMine/
+McMonk_Legacy/
+McOrb/
+McQuest/
+McRoot/
+
 # End of https://www.gitignore.io/api/intellij
