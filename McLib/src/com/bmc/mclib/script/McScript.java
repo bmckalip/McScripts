@@ -34,13 +34,13 @@ public abstract class McScript extends AbstractScript implements TaskManager, Mc
         startTime = System.currentTimeMillis();
         log("Script Started");
         gui = this.createGUI();
-        this.launchGUI();
+        if (gui != null) this.launchGUI();
         updateTasks(this.getTasks());
     }
 
     @Override
     public int onLoop() {
-        if(guiCompleted || gui != null) {
+        if(guiCompleted || gui == null) {
             for (Task task : this.taskList) {
                 if (task.enabled && task.validate()) {
                     isIdle = false;
