@@ -13,10 +13,10 @@ import static com.bmc.mclib.constants.McTiles.ROBE_TOP_LOCATION;
 
 public class LootTask extends Task {
     //loot counter variables
-    public int currentTopCount;
-    public int currentBottomCount;
-    public int topsLooted = 0;
-    public int bottomsLooted = 0;
+    public static int currentTopCount;
+    public static int currentBottomCount;
+    public static int topsLooted = 0;
+    public static int bottomsLooted = 0;
 
     private int itemToLoot;
 

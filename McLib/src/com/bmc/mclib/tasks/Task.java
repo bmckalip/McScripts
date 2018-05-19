@@ -29,6 +29,6 @@ public abstract class Task {
 
     public void refreshObjects(){}
 
-    protected abstract void execute();
+    public abstract void execute();
     public abstract boolean validate();
 }
