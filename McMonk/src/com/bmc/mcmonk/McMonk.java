@@ -57,7 +57,6 @@ public class McMonk extends McScript{
         LootTask lootTopTask = new LootTask(this, ROBE_TOP);
         LootTask lootBottomTask = new LootTask(this, ROBE_BOTTOM);
         HopWorldsTask hopWorldsTask = new HopWorldsTask(this, lootTopTask, lootBottomTask);
-
         Task[] tasks = {
                 new OpenBankTask(this),
                 new DepositTask(this),
@@ -72,11 +71,9 @@ public class McMonk extends McScript{
                 hopWorldsTask,
                 new ClimbDownTask(this)
         };
-
         if(!doLootBottoms) lootBottomTask.enabled = equipBottomTask.enabled = false;
         if(!doLootTops)    lootTopTask.enabled = equipTopTask.enabled = false;
         if(!doHopWorlds)   hopWorldsTask.enabled = false;
-
         return new TaskList(tasks);
     }
 

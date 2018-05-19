@@ -67,12 +67,14 @@ public class LootTask extends Task {
     public void refreshObjects(){
         currentBottomCount = s.getInventory().count(ROBE_BOTTOM);
         currentTopCount = s.getInventory().count(ROBE_TOP);
-        items = s.getGroundItems().getGroundItems(lootLocation);
+        if(lootLocation != null){
+            items = s.getGroundItems().getGroundItems(lootLocation);
+        }
     }
 
     private void adjustCamera(int executionPercent, int byMousePercent) {
-        if (r.nextInt(1/ (executionPercent / 100)) == 0) {
-            if (r.nextInt(1/ (byMousePercent / 100)) == 0) {
+        if (r.nextInt((int)(1 / (executionPercent / 100.00))) == 0) {
+            if (r.nextInt((int)(1 / (byMousePercent / 100.00))) == 0) {
                 s.getCamera().rotateToTile(lootLocation);
             } else {
                 s.getCamera().mouseRotateToTile(lootLocation);
