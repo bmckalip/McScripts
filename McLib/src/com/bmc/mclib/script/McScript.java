@@ -41,10 +41,10 @@ public abstract class McScript extends AbstractScript implements TaskManager{
             for (Task task : this.taskList) {
                 if (task.enabled && task.validate()) {
                     isIdle = false;
-                    if (Task.previousTask != task.toString()) {
+                    if (Task.state != task) {
                         log("Executing Task: " + task.toString());
                     }
-                    return task.execute();
+                    return task.doExecute();
                 }
                 isIdle = true;
             }
