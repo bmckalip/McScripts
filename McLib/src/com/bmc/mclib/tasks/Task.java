@@ -13,6 +13,7 @@ public abstract class Task {
 
     protected Task(McScript script){
         this.s = script;
+        refreshObjects();
     }
 
     public final int doExecute(){
@@ -21,11 +22,13 @@ public abstract class Task {
         return delay;
     }
 
-    protected abstract void execute();
-
-    public abstract boolean validate();
-
     private final void prologue(){
         state = this;
+        refreshObjects();
     }
+
+    public void refreshObjects(){}
+
+    protected abstract void execute();
+    public abstract boolean validate();
 }
