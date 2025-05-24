@@ -1,5 +1,5 @@
 # McScripts_Public
-Public Repository containing code from certain McScripts that have been selectively open sourced.
+Public Repository containing code from certain McScripts for the Dreambot OSRS botting client that have been selectively open sourced.
 
 # Installation instructions
 
